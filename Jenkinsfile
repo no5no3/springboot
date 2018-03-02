@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'echo "hello my friend"'
+                sh 'echo "hellow world" > /home/hirenloong/test-jenkins'
                 sh 'mvn --version'
             }
         }
