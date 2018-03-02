@@ -4,7 +4,8 @@ pipeline {
         stage('build') {
             steps {
                 sh 'echo "hellow world" > /home/hirenloong/test-jenkins'
-                sh 'mvn --version'
+                sh 'mvn spring-boot:stop'
+                sh 'mvn spring-boot:run -Drun.profiles=prod'
             }
         }
         stage('Deploy') {
@@ -20,7 +21,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'echo "Test!"; exit 1'
+                sh 'echo "Test!";'
             }
         }
     }
