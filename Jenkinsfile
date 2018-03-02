@@ -7,8 +7,6 @@ pipeline {
                 sh 'mvn --version'
             }
         }
-    }
-    stages {
         stage('Deploy') {
             steps {
                 retry(3) {
@@ -20,8 +18,6 @@ pipeline {
                 }
             }
         }
-    }
-    stages {
         stage('Test') {
             steps {
                 sh 'echo "Test!"; exit 1'
