@@ -1,5 +1,22 @@
 server:
   port: 8081
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/voca
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+eureka:
+  client:
+    eureka-server-port: 8090
+    eureka-server-d-n-s-name: localhost
+    eureka-server-u-r-l-context: /eureka/
+    enabled: false
+
 #  context-path: /voca
 page:
   pageNum: 1
