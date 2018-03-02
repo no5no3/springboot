@@ -1,0 +1,7 @@
+server:
+  port: 8081
+#  context-path: /voca
+page:
+  pageNum: 1
+  pageSize: 10
+  totalSize: ${page.pageNum} * ${page.pageSize}
