@@ -4,7 +4,10 @@ pipeline {
         stage('build') {
             steps {
                 sh 'echo "hellow world" > /home/hirenloong/test-jenkins'
-                sh 'mvn spring-boot:stop'
+                sh 'curl -v -X POST http://127.0.0.1:8081/shutdown'
+                timeout(time: 30, unit: 'SECONDS') {
+                    sh 'netstat -apn | grep :8081'
+                }
                 sh 'mvn spring-boot:run -Drun.profiles=prod'
             }
         }
