@@ -4,7 +4,7 @@ pipeline {
         stage('build') {
             steps {
                 sh 'echo "hellow world" > /home/hirenloong/test-jenkins'
-                sh 'curl -v -X POST http://127.0.0.1:8081/shutdown'
+                sh 'curl -v -X POST http://127.0.0.1:8081/shutdown || true'
                 timeout(time: 30, unit: 'SECONDS') {
                     sh 'netstat -apn | grep :8081'
                 }
