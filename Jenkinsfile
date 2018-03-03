@@ -27,6 +27,7 @@ pipeline {
     post {
             always {
                 echo 'This will always run'
+                sh 'mvn test'
             }
             success {
                 echo 'This will run only if successful'
