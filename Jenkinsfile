@@ -27,7 +27,7 @@ pipeline {
                 timeout(time: 10, unit: 'SECONDS') {
                     sh 'echo "timeout 10 seconds"'
                 }
-                sh 'nohup mvn spring-boot:run -Drun.profiles=prod &'
+                sh 'echo "mvn spring-boot:run -Drun.profiles=prod" | at now'
             }
         }
     }
