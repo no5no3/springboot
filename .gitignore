@@ -2,6 +2,8 @@
 *.class
 # gradle
 .gradle/
+gradlew*
+gradle/
 build/
 
 # Log file
