@@ -1,10 +1,21 @@
 pipeline {
     agent any
     stages {
-        stage('build') {
+        stage('Build') {
             steps {
-                sh 'curl -v -X POST http://127.0.0.1:8081/shutdown || true'
-                sh 'nohup mvn spring-boot:run -Drun.profiles=prod &'
+                sh 'curl -v -X POST http://127.0.0.1:8081/shutdown || true
+                'sh 'mvn -B -DskipTests clean package'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'echo "Test!";'
+                sh 'mvn test'
+            }
+        }
+        stage('human check') {
+            steps {
+                input "Does the staging environment look ok?"
             }
         }
         stage('Deploy') {
@@ -16,18 +27,13 @@ pipeline {
                 timeout(time: 10, unit: 'SECONDS') {
                     sh 'echo "timeout 10 seconds"'
                 }
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'echo "Test!";'
+                sh 'nohup mvn spring-boot:run -Drun.profiles=prod &'
             }
         }
     }
     post {
             always {
                 echo 'This will always run'
-                sh 'mvn test'
             }
             success {
                 echo 'This will run only if successful'
