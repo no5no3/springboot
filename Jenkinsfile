@@ -2,6 +2,7 @@ pipeline {
     agent {
         docker {
             image 'gradle:alpine'
+            args '-v "$PWD":/home/gradle/project -w /home/gradle/project'
         }
     }
     stages {
