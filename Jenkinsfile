@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        docker none
-    }
+    agent none
     stages {
         stage('Build') {
             agent {
@@ -21,25 +19,12 @@ pipeline {
             sh 'pwd'
             sh 'll'
             sh 'docker build -t c_voca .'
+
+            sh 'docker stop c_voca'
+            sh 'docker rm c_voca'
+            sh 'docker create -p 8081:8081 -i -t --name c_voca --network my-net voca'
+            sh 'docker container start c_voca'
           }
-        }
-        stage('Test') {
-            steps {
-                sh 'echo "Test!";'
-            }
-        }
-        stage('human check') {
-            steps {
-                input "Does the staging environment look ok?"
-            }
-        }
-        stage('Deploy') {
-            steps {
-                sh 'docker stop c_voca'
-                sh 'docker rm c_voca'
-                sh 'docker create -p 8081:8081 -i -t --name c_voca --network my-net voca'
-                sh 'docker container start c_voca'
-            }
         }
     }
     post {
