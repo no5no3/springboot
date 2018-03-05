@@ -9,7 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'pwd'
-                sh 'll'
+                sh 'ls -l'
                 sh 'gradle build'
             }
         }
@@ -17,7 +17,7 @@ pipeline {
           agent any
           steps {
             sh 'pwd'
-            sh 'll'
+            sh 'ls -l'
             sh 'docker build -t c_voca .'
 
             sh 'docker stop c_voca'
