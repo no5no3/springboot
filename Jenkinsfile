@@ -1,6 +1,7 @@
 node {
     stage('Build') {
         steps {
+            sh 'echo "begin"'
             sh 'gradle build -x test'
         }
     }
