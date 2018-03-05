@@ -1,21 +1,14 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3-alpine'
-            args '-v /root/.m2:/root/.m2'
-        }
-    }
+    agent any
     stages {
         stage('Build') {
             steps {
-                sh 'curl -v -X POST http://127.0.0.1:8081/shutdown || true'
-                sh 'mvn -B -DskipTests clean package'
+                sh 'gradle build'
             }
         }
         stage('Test') {
             steps {
                 sh 'echo "Test!";'
-                sh 'mvn test'
             }
         }
         stage('human check') {
@@ -25,14 +18,10 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                retry(3) {
-                    sh 'echo "retry 3 times"'
-                }
-
-                timeout(time: 10, unit: 'SECONDS') {
-                    sh 'echo "timeout 10 seconds"'
-                }
-                sh 'echo "mvn spring-boot:run -Drun.profiles=prod" | at now'
+                sh 'docker stop c_voca'
+                sh 'docker rm c_voca'
+                sh 'docker create -p 8081:8081 -i -t --name c_voca --network my-net voca'
+                sh 'docker container start c_voca'
             }
         }
     }
