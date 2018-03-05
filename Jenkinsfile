@@ -10,7 +10,7 @@ pipeline {
             steps {
                 sh 'pwd'
                 sh 'ls -l'
-                sh 'gradle build'
+                sh 'gradle build -x test'
             }
         }
         stage('Docker Build') {
